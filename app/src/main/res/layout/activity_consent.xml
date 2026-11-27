@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080D18"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="28dp">
+
+        <!-- LOGO -->
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:gravity="center"
+            android:text="⬡"
+            android:textSize="64sp"
+            android:textColor="#38BDF8"
+            android:background="#14243B"/>
+
+        <!-- TITULO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FACEVERIFY"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:letterSpacing="0.10"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AUTORIZACIÓN DE DATOS"
+            android:textColor="#38BDF8"
+            android:textSize="12sp"
+            android:letterSpacing="0.12"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
+
+        <!-- MENSAJE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="La autorización para el tratamiento de datos personales y biométricos es voluntaria."
+            android:textColor="#CBD5E1"
+            android:textSize="16sp"
+            android:lineSpacingExtra="5dp"
+            android:gravity="center"
+            android:layout_marginTop="36dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Al continuar con el registro en FaceVerify, autorizas expresamente el tratamiento de tus características biométricas faciales para su utilización en los procesos de registro y verificación de identidad mediante comparación facial."
+            android:textColor="#E2E8F0"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:gravity="center"
+            android:layout_marginTop="22dp"/>
+
+        <!-- CONSENTIMIENTO EXPLICITO -->
+        <CheckBox
+            android:id="@+id/checkConsent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="He leído la información y autorizo expresamente el tratamiento de mis datos personales y biométricos para las finalidades descritas."
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:buttonTint="#38BDF8"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:layout_marginTop="30dp"
+            android:background="#14243B"/>
+
+        <!-- ACEPTAR -->
+        <Button
+            android:id="@+id/btnAcceptConsent"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:text="ACEPTAR Y CONTINUAR"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#0EA5E9"
+            android:alpha="0.5"
+            android:layout_marginTop="24dp"/>
+
+        <!-- RECHAZAR -->
+        <Button
+            android:id="@+id/btnRejectConsent"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="NO AUTORIZO"
+            android:textColor="#94A3B8"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#17243A"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tu autorización es necesaria para continuar con el registro facial."
+            android:textColor="#64748B"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginTop="22dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

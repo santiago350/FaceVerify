@@ -1,0 +1,32 @@
+*.iml
+
+# Gradle
+.gradle/
+**/build/
+
+# Android Studio
+.idea/
+local.properties
+
+# Archivos de compilación
+*.apk
+*.aab
+*.dex
+
+# Bases de datos locales y datos de usuarios
+*.db
+*.sqlite
+*.sqlite3
+
+# Claves y certificados privados
+*.jks
+*.keystore
+secrets.properties
+
+# Archivos nativos
+.externalNativeBuild/
+.cxx/
+
+# Otros
+.DS_Store
+captures/

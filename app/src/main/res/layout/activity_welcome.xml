@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080D18"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="28dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <!-- LOGO -->
+
+        <TextView
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:gravity="center"
+            android:text="⬡"
+            android:textSize="76sp"
+            android:textColor="#38BDF8"
+            android:background="#14243B"/>
+
+        <!-- NOMBRE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FACEVERIFY"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.10"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TU IDENTIDAD, PROTEGIDA"
+            android:textColor="#38BDF8"
+            android:textSize="12sp"
+            android:letterSpacing="0.16"
+            android:layout_marginTop="10dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="42dp"/>
+
+        <!-- DESCRIPCION -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verificación facial inteligente"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Una forma moderna de verificar tu identidad mediante tecnología biométrica."
+            android:textColor="#94A3B8"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginTop="14dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+
+        <!-- ACCESO -->
+
+        <Button
+            android:id="@+id/btnGoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:text="INICIAR SESIÓN"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:backgroundTint="#2563EB"/>
+
+        <Button
+            android:id="@+id/btnGoRegister"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:text="CREAR UNA CUENTA"
+            android:textColor="#38BDF8"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#17243A"
+            android:layout_marginTop="12dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <!-- PIE -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TECNOLOGÍA  •  SEGURIDAD  •  CONFIANZA"
+            android:textColor="#64748B"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:letterSpacing="0.08"/>
+
+    </LinearLayout>
+
+</ScrollView>

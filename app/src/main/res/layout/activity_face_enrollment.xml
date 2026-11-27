@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080D18"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRO BIOMÉTRICO"
+            android:textColor="#38BDF8"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registra tu rostro"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sigue las indicaciones y mueve tu rostro suavemente."
+            android:textColor="#94A3B8"
+            android:textSize="14sp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- CAMARA Y GUIA OVALADA -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="#111C2E">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:scaleType="fillCenter" />
+
+            <View
+                android:layout_width="220dp"
+                android:layout_height="290dp"
+                android:layout_gravity="center"
+                android:background="@drawable/face_oval_guide" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="18dp"
+                android:text="CENTRA TU ROSTRO"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="#99080D18"
+                android:padding="10dp" />
+
+        </FrameLayout>
+
+        <!-- ESTADO DEL REGISTRO -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#111C2E"
+            android:padding="18dp"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ESTADO DEL REGISTRO"
+                android:textColor="#94A3B8"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtEnrollmentProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 de 3 poses"
+                android:textColor="#FFFFFF"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <ProgressBar
+                android:id="@+id/progressEnrollment"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:max="3"
+                android:progress="0"
+                android:progressTint="#38BDF8"
+                android:progressBackgroundTint="#26364D"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/txtCurrentPose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="01 · MIRA AL FRENTE"
+                android:textColor="#38BDF8"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/txtCameraStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preparando cámara..."
+                android:textColor="#94A3B8"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnFinishEnrollment"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="FINALIZAR REGISTRO FACIAL"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#0F766E"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="24dp"
+            android:enabled="false" />
+
+    </LinearLayout>
+</ScrollView>
