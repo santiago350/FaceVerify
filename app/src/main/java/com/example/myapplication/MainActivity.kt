@@ -43,9 +43,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
-import kotlin.math.sqrt
 import kotlin.random.Random
-
+import androidx.appcompat.app.AlertDialog
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -74,6 +73,11 @@ class MainActivity : AppCompatActivity() {
 
         private const val RETRY_COOLDOWN_SECONDS = 15L
         private const val RETRY_PREFERENCES = "FaceVerifyRetryCooldown"
+
+        // NUEVOS TIEMPOS
+        private const val VERIFICATION_TIMEOUT_SECONDS = 30L
+        private const val STEP_TIMEOUT_SECONDS = 10L
+        private const val TIMER_CHECK_INTERVAL_MS = 250L
     }
 
     private lateinit var previewView: PreviewView
@@ -95,10 +99,23 @@ class MainActivity : AppCompatActivity() {
         Executors.newSingleThreadExecutor()
 
     private val retryHandler = Handler(Looper.getMainLooper())
+    private val timeoutHandler = Handler(Looper.getMainLooper())
 
     private lateinit var retryPreferences: SharedPreferences
 
     private var retryUntilMillis = 0L
+
+    // Temporizadores de verificación
+    @Volatile
+    private var verificationTimedOut = false
+
+    @Volatile
+    private var verificationDeadline = 0L
+
+    @Volatile
+    private var stepDeadline = 0L
+
+    private var timeoutRunnable: Runnable? = null
 
     private val retryCountdownRunnable = object : Runnable {
         override fun run() {
@@ -254,7 +271,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun returnToUserMenu() {
-        retryHandler.removeCallbacks(retryCountdownRunnable)
+        cancelVerificationTimers()
+
+        retryHandler.removeCallbacks(
+            retryCountdownRunnable
+        )
+
+        isChallengeActive = false
+        isVerificationRunning = false
+        verificationFinished = true
+
+        cameraProvider?.unbindAll()
 
         val intent = Intent(
             this,
@@ -303,13 +330,11 @@ class MainActivity : AppCompatActivity() {
                 lockoutStatus != null &&
                 lockoutStatus.isLocked
             ) {
-                // Bloqueo real establecido por UserDatabase
                 setRetryCooldownMillis(
                     lockoutStatus.remainingMillis
                 )
 
             } else {
-                // Rechazo normal: aún no se alcanzaron los 3 fallos
                 clearRetryCooldown()
 
                 btnRestartVerification.text =
@@ -320,9 +345,160 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setRetryCooldownMillis(
-        milliseconds: Long
-    ) {
+    // ---------------------------------------------------------
+    // TEMPORIZADORES: 30 SEGUNDOS TOTAL, 10 POR PASO
+    // ---------------------------------------------------------
+
+    private fun startVerificationTimers() {
+        cancelVerificationTimers()
+
+        verificationTimedOut = false
+
+        verificationDeadline =
+            System.currentTimeMillis() +
+                    VERIFICATION_TIMEOUT_SECONDS * 1000L
+
+        resetStepTimer()
+
+        scheduleTimeoutCheck()
+    }
+
+    private fun resetStepTimer() {
+        stepDeadline =
+            System.currentTimeMillis() +
+                    STEP_TIMEOUT_SECONDS * 1000L
+    }
+
+    private fun scheduleTimeoutCheck() {
+        timeoutRunnable?.let {
+            timeoutHandler.removeCallbacks(it)
+        }
+
+        val runnable = object : Runnable {
+            override fun run() {
+                if (
+                    verificationFinished ||
+                    verificationTimedOut ||
+                    (!isChallengeActive && !isVerificationRunning)
+                ) {
+                    return
+                }
+
+                val now = System.currentTimeMillis()
+
+                if (now >= verificationDeadline) {
+                    timeoutVerification(
+                        "Se agotaron los 30 segundos disponibles para la verificación."
+                    )
+                    return
+                }
+
+                if (
+                    isChallengeActive &&
+                    now >= stepDeadline
+                ) {
+                    timeoutVerification(
+                        "No se completó el paso dentro de los 10 segundos permitidos."
+                    )
+                    return
+                }
+
+                timeoutHandler.postDelayed(
+                    this,
+                    TIMER_CHECK_INTERVAL_MS
+                )
+            }
+        }
+
+        timeoutRunnable = runnable
+
+        timeoutHandler.postDelayed(
+            runnable,
+            TIMER_CHECK_INTERVAL_MS
+        )
+    }
+
+    private fun cancelVerificationTimers() {
+        timeoutRunnable?.let {
+            timeoutHandler.removeCallbacks(it)
+        }
+
+        timeoutRunnable = null
+        timeoutHandler.removeCallbacksAndMessages(null)
+
+        verificationDeadline = 0L
+        stepDeadline = 0L
+    }
+
+    private fun timeoutVerification(message: String) {
+        if (verificationTimedOut) return
+
+        verificationTimedOut = true
+        verificationFinished = true
+        isChallengeActive = false
+        isVerificationRunning = false
+
+        stableFrames = 0
+        challengeStep = 0
+        faceLostFrames = 0
+
+        blinkLivenessDetector.reset()
+
+        cancelVerificationTimers()
+
+        Log.w(
+            TAG,
+            "VERIFICACIÓN CANCELADA POR TIEMPO: $message"
+        )
+
+        runOnUiThread {
+            if (isFinishing || isDestroyed) return@runOnUiThread
+
+            // Detener completamente la cámara
+            cameraProvider?.unbindAll()
+
+            // Actualizar interfaz
+            btnCompare.isEnabled = false
+            btnCompare.visibility = View.GONE
+
+            resultButtons.visibility = View.GONE
+
+            txtResult.text =
+                "Verificación no completada."
+
+            txtChallenge.text =
+                "No se completó la verificación."
+
+            txtCameraStatus.text =
+                "Proceso finalizado."
+
+            txtProgress.text =
+                "VERIFICACIÓN NO COMPLETADA"
+
+            progressLiveness.progress = 0
+
+            // Mostrar mensaje y esperar que el usuario pulse OK
+            AlertDialog.Builder(this)
+                .setTitle("Verificación no completada")
+                .setMessage(
+                    "No se detectó correctamente el rostro " +
+                            "o no se completaron las comprobaciones " +
+                            "dentro del tiempo disponible.\n\n" +
+                            "Por seguridad, volverás al menú principal."
+                )
+                .setCancelable(false)
+                .setPositiveButton("OK") { _, _ ->
+                    returnToUserMenu()
+                }
+                .show()
+        }
+    }
+
+    // ---------------------------------------------------------
+    // BLOQUEO DE REINTENTOS
+    // ---------------------------------------------------------
+
+    private fun setRetryCooldownMillis(milliseconds: Long) {
         retryUntilMillis =
             System.currentTimeMillis() +
                     milliseconds.coerceAtLeast(0L)
@@ -354,7 +530,6 @@ class MainActivity : AppCompatActivity() {
         if (lockoutStatus == null) {
             txtResult.text =
                 "No se pudo consultar el bloqueo de seguridad."
-
             return
         }
 
@@ -387,6 +562,7 @@ class MainActivity : AppCompatActivity() {
         btnCompare.visibility = View.VISIBLE
 
         verificationFinished = false
+        verificationTimedOut = false
         isVerificationRunning = false
         isChallengeActive = false
 
@@ -468,6 +644,23 @@ class MainActivity : AppCompatActivity() {
             )
 
         retryCountdownRunnable.run()
+    }
+
+    private fun formatRemainingTime(
+        milliseconds: Long
+    ): String {
+        val totalSeconds =
+            ((milliseconds + 999L) / 1000L)
+                .coerceAtLeast(1L)
+
+        return if (totalSeconds >= 60L) {
+            val minutes = totalSeconds / 60L
+            val seconds = totalSeconds % 60L
+
+            "${minutes} min ${seconds} s"
+        } else {
+            "$totalSeconds segundos"
+        }
     }
 
     // ---------------------------------------------------------
@@ -675,7 +868,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(
                 TAG,
-                "Error registrando intento facial fallido",
+                "Error registrando intento facial",
                 e
             )
 
@@ -707,23 +900,6 @@ class MainActivity : AppCompatActivity() {
                 "Error reiniciando intentos faciales",
                 e
             )
-        }
-    }
-
-    private fun formatRemainingTime(
-        milliseconds: Long
-    ): String {
-        val totalSeconds =
-            ((milliseconds + 999L) / 1000L)
-                .coerceAtLeast(1L)
-
-        return if (totalSeconds >= 60L) {
-            val minutes = totalSeconds / 60L
-            val seconds = totalSeconds % 60L
-
-            "${minutes} min ${seconds} s"
-        } else {
-            "$totalSeconds segundos"
         }
     }
 
@@ -761,7 +937,6 @@ class MainActivity : AppCompatActivity() {
                     "Tiempo restante: ${status.remainingMillis} ms"
         )
     }
-
     // ---------------------------------------------------------
     // ILUMINACIÓN FACIAL
     // ---------------------------------------------------------
@@ -883,7 +1058,6 @@ class MainActivity : AppCompatActivity() {
                 TAG,
                 "Inicio ignorado: ya existe un proceso activo."
             )
-
             return
         }
 
@@ -894,7 +1068,6 @@ class MainActivity : AppCompatActivity() {
         ) {
             txtResult.text =
                 "Los motores biométricos no están disponibles."
-
             return
         }
 
@@ -916,7 +1089,6 @@ class MainActivity : AppCompatActivity() {
         if (lockoutStatus == null) {
             txtResult.text =
                 "No se pudo consultar el estado de seguridad. Intenta nuevamente."
-
             return
         }
 
@@ -942,6 +1114,7 @@ class MainActivity : AppCompatActivity() {
             cameraExecutor.execute {
 
                 verificationFinished = false
+                verificationTimedOut = false
 
                 challengeStep = 0
                 stableFrames = 0
@@ -966,6 +1139,10 @@ class MainActivity : AppCompatActivity() {
                 blinkLivenessDetector.reset()
 
                 isChallengeActive = true
+                isVerificationRunning = false
+
+                // Iniciar límite de 30 s total y 10 s por paso
+                startVerificationTimers()
 
                 val firstMessage =
                     when (randomizedActions.first()) {
@@ -1012,6 +1189,8 @@ class MainActivity : AppCompatActivity() {
                 "No se pudo iniciar el reto",
                 e
             )
+
+            cancelVerificationTimers()
 
             runOnUiThread {
                 isChallengeActive = false
@@ -1083,7 +1262,6 @@ class MainActivity : AppCompatActivity() {
                 "Error detectando señales faciales",
                 e
             )
-
             null
         }
     }
@@ -1100,7 +1278,8 @@ class MainActivity : AppCompatActivity() {
         try {
             if (
                 isVerificationRunning ||
-                verificationFinished
+                verificationFinished ||
+                verificationTimedOut
             ) return
 
             val frameBitmap =
@@ -1139,6 +1318,12 @@ class MainActivity : AppCompatActivity() {
                         challengeStep = 0
                         faceLostFrames = 0
                         stableFrames = 0
+
+                        // Cancelar temporizadores de este intento
+                        cancelVerificationTimers()
+
+                        verificationTimedOut = false
+                        verificationFinished = false
 
                         blinkLivenessDetector.reset()
 
@@ -1340,7 +1525,8 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (
             !isChallengeActive ||
-            isVerificationRunning
+            isVerificationRunning ||
+            verificationTimedOut
         ) return
 
         when (challengeStep) {
@@ -1399,6 +1585,9 @@ class MainActivity : AppCompatActivity() {
                     stableFrames = 0
                     challengeStep = 3
 
+                    // Nuevo paso: reiniciar 10 segundos
+                    resetStepTimer()
+
                     updateLivenessProgress(3)
 
                     val message =
@@ -1428,6 +1617,9 @@ class MainActivity : AppCompatActivity() {
                     stableFrames = 0
                     challengeStep = 4
 
+                    // Nuevo paso: reiniciar 10 segundos
+                    resetStepTimer()
+
                     updateLivenessProgress(4)
 
                     val message =
@@ -1456,6 +1648,9 @@ class MainActivity : AppCompatActivity() {
                 if (stableFrames >= REQUIRED_FRAMES) {
                     stableFrames = 0
                     challengeStep = 5
+
+                    // Nuevo paso: reiniciar 10 segundos
+                    resetStepTimer()
 
                     updateLivenessProgress(5)
 
@@ -1493,6 +1688,9 @@ class MainActivity : AppCompatActivity() {
         stableFrames = 0
         challengeStep++
 
+        // Nuevo paso: reiniciar límite de 10 segundos
+        resetStepTimer()
+
         if (challengeStep < 2) {
             updateLivenessProgress(1)
 
@@ -1516,6 +1714,9 @@ class MainActivity : AppCompatActivity() {
 
         } else {
             challengeStep = 2
+
+            // El primer paso de centrado también tiene 10 s
+            resetStepTimer()
 
             updateLivenessProgress(2)
 
@@ -1556,11 +1757,15 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (
             isVerificationRunning ||
-            verificationFinished
+            verificationFinished ||
+            verificationTimedOut
         ) return
 
         isVerificationRunning = true
         isChallengeActive = false
+
+        // Se desactiva el límite por paso; sigue el total de 30 s
+        stepDeadline = 0L
 
         updateLivenessProgress(5)
 
@@ -1646,6 +1851,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         runOnUiThread {
+            if (
+                verificationTimedOut ||
+                isFinishing ||
+                isDestroyed
+            ) return@runOnUiThread
+
             txtProgress.text =
                 "PASO 5 DE 5"
 
@@ -1693,6 +1904,8 @@ class MainActivity : AppCompatActivity() {
     private fun releaseAfterCaptureError() {
         isVerificationRunning = false
 
+        cancelVerificationTimers()
+
         runOnUiThread {
             if (
                 !isFinishing &&
@@ -1720,7 +1933,15 @@ class MainActivity : AppCompatActivity() {
     ) {
         verificationFinished = true
 
+        cancelVerificationTimers()
+
         runOnUiThread {
+            if (
+                verificationTimedOut ||
+                isFinishing ||
+                isDestroyed
+            ) return@runOnUiThread
+
             txtResult.text = message
 
             txtChallenge.text =
@@ -1749,6 +1970,8 @@ class MainActivity : AppCompatActivity() {
         bitmap: Bitmap
     ) {
         try {
+            if (verificationTimedOut) return
+
             val database = UserDatabase(this)
 
             val primaryTemplates:
@@ -1768,6 +1991,8 @@ class MainActivity : AppCompatActivity() {
                 database.close()
             }
 
+            if (verificationTimedOut) return
+
             if (primaryTemplates == null) {
                 throw IllegalStateException(
                     "No se encontraron plantillas faciales principales para esta cuenta."
@@ -1782,6 +2007,8 @@ class MainActivity : AppCompatActivity() {
 
             val newEmbedding =
                 processor.generateEmbedding(bitmap)
+
+            if (verificationTimedOut) return
 
             require(
                 newEmbedding.size == 128 &&
@@ -1854,12 +2081,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            if (verificationTimedOut) return
+
             val similarities =
                 registeredEmbeddings.map {
                         (name, template) ->
 
                     val similarity =
-                        cosineSimilarity(
+                        FaceSimilarity.cosineSimilarity(
                             newEmbedding,
                             template
                         )
@@ -1899,6 +2128,15 @@ class MainActivity : AppCompatActivity() {
                     bestSimilarity
                 )
 
+            // Evitar registrar intentos si ya expiró
+            if (verificationTimedOut) {
+                Log.w(
+                    TAG,
+                    "Resultado descartado: el tiempo expiró."
+                )
+                return
+            }
+
             val lockoutAfterAttempt =
                 if (accepted) {
                     registerFaceSuccess()
@@ -1908,7 +2146,17 @@ class MainActivity : AppCompatActivity() {
                 }
 
             runOnUiThread {
+                // Evitar resultados tardíos en UI
+                if (
+                    verificationTimedOut ||
+                    isFinishing ||
+                    isDestroyed
+                ) {
+                    return@runOnUiThread
+                }
+
                 verificationFinished = true
+                cancelVerificationTimers()
 
                 if (accepted) {
                     txtResult.text = """
@@ -2044,7 +2292,16 @@ class MainActivity : AppCompatActivity() {
             )
 
             runOnUiThread {
+                if (
+                    verificationTimedOut ||
+                    isFinishing ||
+                    isDestroyed
+                ) {
+                    return@runOnUiThread
+                }
+
                 verificationFinished = true
+                cancelVerificationTimers()
 
                 txtResult.text =
                     "Error durante la verificación: " +
@@ -2092,10 +2349,6 @@ class MainActivity : AppCompatActivity() {
     // ---------------------------------------------------------
     // CONVERSIÓN IMAGEPROXY A BITMAP
     // ---------------------------------------------------------
-
-// ---------------------------------------------------------
-// CONVERSIÓN IMAGEPROXY A BITMAP
-// ---------------------------------------------------------
 
     private fun imageProxyToBitmap(
         imageProxy: ImageProxy
@@ -2161,7 +2414,6 @@ class MainActivity : AppCompatActivity() {
                             row * vPlane.rowStride +
                             col * vPlane.pixelStride
 
-                // NV21: primero V y después U
                 nv21[outputIndex++] = vBuffer.get(vIndex)
                 nv21[outputIndex++] = uBuffer.get(uIndex)
             }
@@ -2197,7 +2449,8 @@ class MainActivity : AppCompatActivity() {
             "No se pudo convertir ImageProxy a Bitmap."
         )
 
-        val rotation = imageProxy.imageInfo.rotationDegrees
+        val rotation =
+            imageProxy.imageInfo.rotationDegrees
 
         if (rotation == 0) {
             return original
@@ -2262,8 +2515,7 @@ class MainActivity : AppCompatActivity() {
                 56.0f, 71.7f
             )
 
-        val matrix =
-            Matrix()
+        val matrix = Matrix()
 
         if (
             !matrix.setPolyToPoly(
@@ -2302,72 +2554,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ---------------------------------------------------------
-    // SIMILITUD COSENO
-    // ---------------------------------------------------------
-
-    private fun cosineSimilarity(
-        first: FloatArray,
-        second: FloatArray
-    ): Double {
-        require(
-            first.size == 128 &&
-                    second.size == 128
-        ) {
-            "Los embeddings deben tener exactamente 128 dimensiones."
-        }
-
-        var dotProduct = 0.0
-        var normFirst = 0.0
-        var normSecond = 0.0
-
-        for (i in first.indices) {
-            require(
-                first[i].isFinite() &&
-                        second[i].isFinite()
-            ) {
-                "Embedding contiene valores inválidos."
-            }
-
-            val a =
-                first[i].toDouble()
-
-            val b =
-                second[i].toDouble()
-
-            dotProduct += a * b
-            normFirst += a * a
-            normSecond += b * b
-        }
-
-        val denominator =
-            sqrt(normFirst) *
-                    sqrt(normSecond)
-
-        require(
-            denominator > 1e-12 &&
-                    denominator.isFinite()
-        ) {
-            "No se pudo calcular la similitud."
-        }
-
-        val similarity =
-            dotProduct / denominator
-
-        require(similarity.isFinite()) {
-            "El resultado de similitud no es válido."
-        }
-
-        return similarity.coerceIn(
-            -1.0,
-            1.0
-        )
-    }
-
-    // ---------------------------------------------------------
     // CIERRE DE RECURSOS
     // ---------------------------------------------------------
 
     override fun onDestroy() {
+        cancelVerificationTimers()
+
         retryHandler.removeCallbacks(
             retryCountdownRunnable
         )

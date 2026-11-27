@@ -1,0 +1,288 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3785), pid=35400, tid=31120
+#
+# JRE version:  (25.0.4) (build )
+# Java VM: OpenJDK 64-Bit Server VM (25.0.4+-16339643-b508.27, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Djava.awt.headless=true -Djava.library.path=C:\Program Files\Android\Android Studio\jbr\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Android\Android Studio\jbr\bin;C:\Program Files\Microsoft\jdk-25.0.2.10-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-XX\bin;C:\Program Files\MATLAB\R2026a\bin;C:\Program Files\dotnet\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\;C:\Users\ftfel\AppData\Local\Programs\Python\Launcher\;C:\Users\ftfel\AppData\Local\Microsoft\WindowsApps;C:\Users\ftfel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ftfel\AppData\Local\JetBrains\Toolbox\scripts;;.;C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\src\testDebug\jniLibs;C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\src\test\jniLibs -Dorg.gradle.internal.worker.tmpdir=C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\build\tmp\testDebugUnitTest\work --add-opens=java.base/java.io=ALL-UNNAMED -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=CO -Duser.language=es -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 2'
+
+Host: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 cores, 7G,  Windows 11 , 64 bit Build 26100 (10.0.26100.9974)
+Time: Fri Nov 27 08:54:01 2026 Hora est. Pacífico, Sudamérica elapsed time: 0.031580 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000002a15dc90070):  JavaThread "Unknown thread" [_thread_in_vm, id=31120, stack(0x000000a807a00000,0x000000a807b00000) (1024K)]
+
+Stack: [0x000000a807a00000,0x000000a807b00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x7c04b9]  (no source info available)
+V  [jvm.dll+0x78a2ad]  (no source info available)
+V  [jvm.dll+0xa10e4f]  (no source info available)
+V  [jvm.dll+0xa134d4]  (no source info available)
+V  [jvm.dll+0xa13bd3]  (no source info available)
+V  [jvm.dll+0x30aaf6]  (no source info available)
+V  [jvm.dll+0x7bc595]  (no source info available)
+V  [jvm.dll+0x7aefd7]  (no source info available)
+V  [jvm.dll+0x3ff5bb]  (no source info available)
+V  [jvm.dll+0x407776]  (no source info available)
+V  [jvm.dll+0x3f3c26]  (no source info available)
+V  [jvm.dll+0x3f3f08]  (no source info available)
+V  [jvm.dll+0x3c9192]  (no source info available)
+V  [jvm.dll+0x3c9fae]  (no source info available)
+V  [jvm.dll+0x9d5c8f]  (no source info available)
+V  [jvm.dll+0x465b12]  (no source info available)
+V  [jvm.dll+0x9b9a92]  (no source info available)
+V  [jvm.dll+0x50885e]  (no source info available)
+V  [jvm.dll+0x50a0e1]  (no source info available)
+C  [jli.dll+0x5401]  (no source info available)
+C  [ucrtbase.dll+0x2cd30]  (no source info available)
+C  [KERNEL32.DLL+0x2dda7]  (no source info available)
+C  [ntdll.dll+0xc9c5c]  (no source info available)
+
+Lock stack of current Java thread (top to bottom):
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffc1c114c08, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000002a15dcc4150 WorkerThread "GC Thread#0"                     [id=32452, stack(0x000000a807b00000,0x000000a807c00000) (1024K)]
+  0x000002a15dcdb100 ConcurrentGCThread "G1 Main Marker"            [id=6088, stack(0x000000a807c00000,0x000000a807d00000) (1024K)]
+  0x000002a15dcdcc50 WorkerThread "G1 Conc#0"                       [id=34128, stack(0x000000a807d00000,0x000000a807e00000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffc1b78e73a]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007ffc1c19ab50] Heap_lock - owner thread: 0x000002a15dc90070
+
+Heap address: 0x00000000e0000000, size: 512 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+UseCompressedClassPointers 1, UseCompactObjectHeaders 0
+Narrow klass pointer bits 32, Max shift 3
+Narrow klass base: 0xffffffffffffffff, Narrow klass shift: -1
+Encoding Range: [0xffffffffffffffff - 0x000000007fffffff), (2147483648 bytes)
+Klass Range:    [0x0000000000000000 - 0x0000000000000000), (0 bytes)
+Klass ID Range:  [4294967295 - 0) (1)
+No protection zone.
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 10 size 36 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+Heap:
+ garbage-first heap   total reserved 524288K, committed 0K, used 0K [0x00000000e0000000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, TAMS=top-at-mark-start, PB=parsable bottom
+
+Card table byte_map: [0x000002a172330000,0x000002a172430000] _byte_map_base: 0x000002a171c30000
+
+Marking Bits: (CMBitMap*) 0x000002a15dcc48e0
+ Bits: [0x000002a172430000, 0x000002a172c30000)
+
+GC Heap Usage History (0 events):
+No events
+
+Metaspace Usage History (0 events):
+No events
+
+Dll operation events (2 events):
+Event: 0.009 Attempting to load shared library C:\Program Files\Android\Android Studio\jbr\bin\java.dll
+Event: 0.010 Loaded shared library C:\Program Files\Android\Android Studio\jbr\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7cdeb0000 - 0x00007ff7cdeba000 	C:\Program Files\Android\Android Studio\jbr\bin\java.exe
+0x00007ffd22130000 - 0x00007ffd2239c000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffd1fef0000 - 0x00007ffd1ffbb000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffd1f9e0000 - 0x00007ffd1fde9000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffd1f640000 - 0x00007ffd1f78c000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffcf95c0000 - 0x00007ffcf95d6000 	C:\Program Files\Android\Android Studio\jbr\bin\jli.dll
+0x00007ffd0f0f0000 - 0x00007ffd0f10b000 	C:\Program Files\Android\Android Studio\jbr\bin\VCRUNTIME140.dll
+0x00007ffd1ffc0000 - 0x00007ffd2019e000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffd1f420000 - 0x00007ffd1f447000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffcfa4e0000 - 0x00007ffcfa771000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.9818_none_3e071914e3359bdd\COMCTL32.dll
+0x00007ffd1fdf0000 - 0x00007ffd1fe1b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffd21690000 - 0x00007ffd21739000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffd1f450000 - 0x00007ffd1f579000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffd1f7a0000 - 0x00007ffd1f843000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffd20f00000 - 0x00007ffd20f31000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffd1a6c0000 - 0x00007ffd1a6cc000 	C:\Program Files\Android\Android Studio\jbr\bin\vcruntime140_1.dll
+0x00007ffcd8e90000 - 0x00007ffcd8f1d000 	C:\Program Files\Android\Android Studio\jbr\bin\msvcp140.dll
+0x00007ffc1b3b0000 - 0x00007ffc1c291000 	C:\Program Files\Android\Android Studio\jbr\bin\server\jvm.dll
+0x00007ffd1fe20000 - 0x00007ffd1fedc000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffd214e0000 - 0x00007ffd21588000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffd20d30000 - 0x00007ffd20e48000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffd217c0000 - 0x00007ffd21840000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffd1f120000 - 0x00007ffd1f17e000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffd15860000 - 0x00007ffd15896000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffd0f6d0000 - 0x00007ffd0f6db000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffd1f100000 - 0x00007ffd1f115000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffd1df70000 - 0x00007ffd1df8b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffd17040000 - 0x00007ffd1704a000 	C:\Program Files\Android\Android Studio\jbr\bin\jimage.dll
+0x00007ffd1c6f0000 - 0x00007ffd1c93c000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffd201b0000 - 0x00007ffd20555000 	C:\WINDOWS\System32\combase.dll
+0x00007ffd21150000 - 0x00007ffd2122a000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffcf2990000 - 0x00007ffcf29cb000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffd1f2d0000 - 0x00007ffd1f37c000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffd02030000 - 0x00007ffd0204e000 	C:\Program Files\Android\Android Studio\jbr\bin\java.dll
+0x00007ffd21340000 - 0x00007ffd214d9000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffd20560000 - 0x00007ffd20d10000 	C:\WINDOWS\System32\SHELL32.dll
+
+JVMTI agents: none
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Android\Android Studio\jbr\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.9818_none_3e071914e3359bdd;C:\Program Files\Android\Android Studio\jbr\bin\server
+
+VM Arguments:
+jvm_args: -Djava.awt.headless=true -Djava.library.path=C:\Program Files\Android\Android Studio\jbr\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Android\Android Studio\jbr\bin;C:\Program Files\Microsoft\jdk-25.0.2.10-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-XX\bin;C:\Program Files\MATLAB\R2026a\bin;C:\Program Files\dotnet\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\;C:\Users\ftfel\AppData\Local\Programs\Python\Launcher\;C:\Users\ftfel\AppData\Local\Microsoft\WindowsApps;C:\Users\ftfel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ftfel\AppData\Local\JetBrains\Toolbox\scripts;;.;C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\src\testDebug\jniLibs;C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\src\test\jniLibs -Dorg.gradle.internal.worker.tmpdir=C:\Users\ftfel\AndroidStudioProjects\MyApplication\app\build\tmp\testDebugUnitTest\work --add-opens=java.base/java.io=ALL-UNNAMED -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=CO -Duser.language=es -Duser.variant -ea 
+java_command: worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 2'
+java_class_path (initial): C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\workerMain\\gradle-worker.jar;C:\\Users\\ftfel\\AndroidStudioProjects\\MyApplication\\app\\build\\intermediates\\built_in_kotlinc\\debugUnitTest\\compileDebugUnitTestKotlin\\classes;C:\\Users\\ftfel\\AndroidStudioProjects\\MyApplication\\app\\build\\intermediates\\java_res\\debugUnitTest\\extractDebugUnitTestJavaRes\\out;C:\\Users\\ftfel\\AndroidStudioProjects\\MyApplication\\app\\build\\intermediates\\runtime_app_classes_jar\\debug\\bundleDebugClassesToRuntimeJar\\classes.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\junit\\junit\\4.13.2\\8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12\\junit-4.13.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\4df366576dd81cbcae5fe1c5dedebd71\\transformed\\material-1.10.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e5ea62d82436f765feb6c1f96336cf57\\transformed\\constraintlayout-2.1.4-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d9c098179596d39144ad57456c8903d1\\transformed\\camera-video-1.4.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e2279b80df7331c5bc4f637a45b9b534\\transformed\\camera-lifecycle-1.4.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\37d9734d2b30b59dcf01ba1bc2baec67\\transformed\\camera-camera2-1.4.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7f61affe2af51f00ec0496391fe0d54d\\transformed\\camera-core-1.4.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a45ea4eed6bcde87facf289d5a0cf7df\\transformed\\camera-view-1.4.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\082d7c1b7431e45a2022c502c4827252\\transformed\\appcompat-resources-1.6.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\07c07cc4d34a9e3cffaa249abefe4cc1\\transformed\\face-detection-16.1.7-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\76552855dd6620e18a7b27e6e1d0ff1b\\transformed\\play-services-mlkit-face-detection-17.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\2eb1be2036259425c8a6fdcaa9edab81\\transformed\\vision-common-17.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\400c70ed45d42c1d1b5ece2d1e3302ac\\transformed\\common-18.11.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\442cd2452cc76ae6a9ec8d742f1bb7f3\\transformed\\appcompat-1.6.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d22b0d7df1bafb0af56ca2b2a05e6470\\transformed\\viewpager2-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\16ff5db75e24ff1215b1ad92ad9c7975\\transformed\\play-services-base-18.5.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f8b9665a5398146c9fd85efba0615810\\transformed\\vision-interfaces-16.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1801b44a157b4d7e8a8012ad10f9be64\\transformed\\play-services-tasks-18.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\43abcaf7a9d5fdf8039b4b3c8c3f2734\\transformed\\play-services-basement-18.4.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e9e6b1fc015aa5244b4082579227779d\\transformed\\fragment-1.3.6-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\abbba299b2c13e9a4b4a98ca4fa169ec\\transformed\\activity-1.13.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7205d2d7fb60342637cd850a54588e12\\transformed\\activity-ktx-1.13.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ce32efb8b57dfe53b65439eeee333965\\transformed\\emoji2-views-helper-1.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ad37c8891087557f19c41ebd76913be1\\transformed\\emoji2-1.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d889ae5ce5c6a80de92ad63a19e6e398\\transformed\\drawerlayout-1.1.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\67a0567dd859abab0d3f61db876f1471\\transformed\\coordinatorlayout-1.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\9b5512e5704153ad0b4409d7a4331d87\\transformed\\dynamicanimation-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\44d3516a9523e644187fc503bad79f89\\transformed\\transition-1.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\31e299c4b11167910248e9f43773af59\\transformed\\vectordrawable-animated-1.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5ca850dd49bb3d812f6c588a7e5017b4\\transformed\\vectordrawable-1.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\9e29e9d76348158843e1a0dd3ec5b13f\\transformed\\core-ktx-1.18.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a3059cee9fcd8def558e4f7fa108a2b6\\transformed\\viewpager-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ab523d000cc64570005b7bc57b354aca\\transformed\\legacy-support-core-utils-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\02f98ade935ac9219bd40dfde5f4dcc1\\transformed\\loader-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\89a11a5c7aeb803c812f05366efd8741\\transformed\\recyclerview-1.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\27f4e4b9a073152f3704e06c30779580\\transformed\\customview-1.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\933478ace344d29b91d0f1ebf61054bd\\transformed\\core-1.18.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\84cc738afe687255e15773c32eba2ffc\\transformed\\lifecycle-viewmodel-ktx-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\deb906f83e378f98c17703955cd82b10\\transformed\\lifecycle-viewmodel-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5de78126d82dcd4c69e21a80770f0fd1\\transformed\\lifecycle-runtime-ktx-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\badfd8e7b39ac6ce9f31a3931249ed7f\\transformed\\lifecycle-process-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\55538a01c559daa501aae6c58409c4a8\\transformed\\lifecycle-livedata-core-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\60d1477bfa7bbc4dba4fcb0b75490a92\\transformed\\lifecycle-livedata-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\11eddca21f586827ba527f50464e7bef\\transformed\\lifecycle-runtime-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.lifecycle\\lifecycle-common\\2.6.2\\10f354fdb64868baecd67128560c5a0d6312c495\\lifecycle-common-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\977258eb1f2ef2d19f65f2cd153b8dee\\transformed\\lifecycle-viewmodel-savedstate-2.6.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\15fe822a1732f787c22cbec141365231\\transformed\\savedstate-1.2.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\0a04dc607eb9ee00565787b13bb48d14\\transformed\\savedstate-ktx-1.2.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\47b7f7a6237973a122ed0f7a2e2988f9\\transformed\\annotation-experimental-1.4.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.concurrent\\concurrent-futures-ktx\\1.1.0\\b4c245baf36d1a9e7defaf3be84f7a2ad4e1c797\\concurrent-futures-ktx-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1c46259b22067c257dcf8877512e11a2\\transformed\\profileinstaller-1.4.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\c2ca67ccfbc3bf8b8da68fd7702e55c5\\transformed\\startup-runtime-1.1.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d41673afcb07fc795930c6e757829e0d\\transformed\\tracing-1.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\84830bee5c6e6ff1042f202de8f57d24\\transformed\\tracing-ktx-1.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\96a7d13adcd29d658d1dff9c08af8617\\transformed\\navigationevent-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\799a6a109c4dc64a21788f6ad9e540cf\\transformed\\core-viewtree-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-jdk7\\1.8.22\\4dabb8248310d833bb6a8b516024a91fd3d275c\\kotlin-stdlib-jdk7-1.8.22.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlinx\\kotlinx-coroutines-android\\1.9.0\\6cf3b8df5a2ce8c6b0dffe55657a827c405ee2fe\\kotlinx-coroutines-android-1.9.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlinx\\kotlinx-coroutines-core-jvm\\1.9.0\\9beade4c1c1569e4f36cbd2c37e02e3e41502601\\kotlinx-coroutines-core-jvm-1.9.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f60aa93b013b80b30b07bd90becc6ce4\\transformed\\versionedparcelable-1.1.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.collection\\collection-jvm\\1.4.2\\bc60b5568a66d765a9fe8e266fd0c6c727e0b50b\\collection-jvm-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\74cd28f031f9aa19101993c666736084\\transformed\\cursoradapter-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.resourceinspection\\resourceinspection-annotation\\1.0.1\\8c21f8ff5d96d5d52c948707f7e4d6ca6773feef\\resourceinspection-annotation-1.0.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\63cf45c7b2332cce26b6c9dc8f1ce7b9\\transformed\\cardview-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e037b187c315a7f350e9cee9726fe03d\\transformed\\transport-backend-cct-2.3.3-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\bea6e76c523d06327708cd7989709df1\\transformed\\transport-runtime-2.2.6-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\df589b6979f2409e738bbef74250c82b\\transformed\\transport-api-2.2.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\6d7b7ec103bde9c60c7d8a827eb6fe44\\transformed\\firebase-components-16.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e675a8a15b791f37b7f78bcb614a0437\\transformed\\firebase-encoders-json-17.1.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.firebase\\firebase-encoders\\16.1.0\\267565db8531da1483692e27eb58f93ec894c78\\firebase-encoders-16.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.concurrent\\concurrent-futures\\1.1.0\\50b7fb98350d5f42a4e49704b03278542293ba48\\concurrent-futures-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\cedccfc237b2c8e1ca5204f4e6de677a\\transformed\\exifinterface-1.3.2-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7e52dac0a88ac7fc3c7071875e105bb3\\transformed\\core-runtime-2.2.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.arch.core\\core-common\\2.2.0\\5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3\\core-common-2.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\0b945ac3ed2383211b57bad41c29a73f\\transformed\\interpolator-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7d082173ea91470938da1456d801176b\\transformed\\documentfile-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a22571aa883dcf2080dd0686df7bfe36\\transformed\\localbroadcastmanager-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ee8f3937a00e3c2e5b831060e1ad0d13\\transformed\\print-1.0.0-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.annotation\\annotation-jvm\\1.9.1\\b17951747e38bf3986a24431b9ba0d039958aa5f\\annotation-jvm-1.9.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7e5a687a6c7c3a0442a8e2c95984e434\\transformed\\runtime-annotation-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\2.2.10\\30de6faa127a4a012db8e71bf1b9c0a99b1402b2\\kotlin-stdlib-2.2.10.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.tensorflow\\tensorflow-lite-metadata\\0.4.4\\5c48399819c77d0e9984c96b773fdf0062e0af7c\\tensorflow-lite-metadata-0.4.4.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.hamcrest\\hamcrest-core\\1.3\\42a25dc3219429f0e5d060061f71acb49bf010a0\\hamcrest-core-1.3.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\23.0.0\\8cc20c07506ec18e0834947b84a864bfc094484e\\annotations-23.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\androidx.constraintlayout\\constraintlayout-core\\1.0.4\\29cdbe03ded6b0980f63fa5da2579a430e911c40\\constraintlayout-core-1.0.4.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.errorprone\\error_prone_annotations\\2.15.0\\38c8485a652f808c8c149150da4e5c2b0bd17f9a\\error_prone_annotations-2.15.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.checkerframework\\checker-qual\\2.5.8\\41c6fa63cba0fea55ebd3581d42b3d2c5cca98b2\\checker-qual-2.5.8.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.flatbuffers\\flatbuffers-java\\1.12.0\\8201cc7b511177a37071249e891f2f2fea4b32e9\\flatbuffers-java-1.12.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\9dcf66ae557d00872e5db5107bc8841f\\transformed\\litert-1.0.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.auto.value\\auto-value-annotations\\1.6.3\\b88c1bb7f149f6d2cc03898359283e57b08f39cc\\auto-value-annotations-1.6.3.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.guava\\listenablefuture\\1.0\\c949a840a6acbc5268d088e47b04177bf90b3cad\\listenablefuture-1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\javax.inject\\javax.inject\\1\\6975da39a7040257bd51d21a231b76c915872d38\\javax.inject-1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\86ce80df1a5a2650f83254d3b88e089f\\transformed\\image-1.0.0-beta1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\com.google.firebase\\firebase-annotations\\16.0.0\\dbeae20d6c97b747b59ef47b6dcf770ba1a60fa6\\firebase-annotations-16.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\434d9ab7a583ddbda3bbcda9fa6e50c5\\transformed\\litert-api-1.0.1-runtime.jar;C:\\Users\\ftfel\\.gradle\\caches\\modules-2\\files-2.1\\org.jspecify\\jspecify\\1.0.0\\7425a601c1c7ec76645a78d22b8c6a627edee507\\jspecify-1.0.0.jar;C:\\Users\\ftfel\\AndroidStudioProjects\\MyApplication\\app\\build\\intermediates\\java_res_compressed_jar\\debug\\compressDebugJavaRes\\java_res.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e8faae313a01fd5332fa370b74b45245\\transformed\\junit-4.13.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\dd454b3147b428d11b7915bb4e10b3e2\\transformed\\material-1.10.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\4c8c33a25aefaee9dfbb095dd7db6e52\\transformed\\constraintlayout-2.1.4.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\45c7e4119f5d2d5d59e9f768e8d6c3ca\\transformed\\camera-video-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\dc85f2e3cfc2087248d3d613bd824991\\transformed\\camera-lifecycle-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\615a6eb7839304dbe6a0f17b4a340c51\\transformed\\camera-camera2-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\74df77abf6f912dccc71d9a5e489999b\\transformed\\camera-core-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\9f42489d3d67ae496f9abc2292cb1fd6\\transformed\\camera-view-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f3b16f7a6f15cc2d564dfb30a723d8af\\transformed\\appcompat-resources-1.6.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5ab4b79516f68d697b708fea6a4b0dab\\transformed\\face-detection-16.1.7.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\085908d7b1df8bfee75c27ba2bf8b8dc\\transformed\\play-services-mlkit-face-detection-17.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\87c59767a6797055013e2291aa655b3d\\transformed\\vision-common-17.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\87aaf5d6aea1e36159fd4b31026395c3\\transformed\\common-18.11.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\c2b9c61d24602245d9a867cdd6ce55e8\\transformed\\appcompat-1.6.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\fb597fd8bc6d7db5b45f8f8197417978\\transformed\\viewpager2-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\dff4637f187229f8dc21e730df1e6b05\\transformed\\play-services-base-18.5.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ac55ee3bbcfa4be20996bf10e2f1bbe9\\transformed\\vision-interfaces-16.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\378fafcafee5f7b10a48a1b244ffdbc6\\transformed\\play-services-tasks-18.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\0aab6fd195d3f50d4ce21a4d4d4671d0\\transformed\\play-services-basement-18.4.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\6fb51bdf42b5eff0b0c585b0e01a85b0\\transformed\\fragment-1.3.6.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\043a7e738c839ad1c153dfe125da9376\\transformed\\activity-1.13.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b9d92c53a4c111e1af4769072023a85c\\transformed\\activity-ktx-1.13.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5ecc3f15a2a9e54f25e941894c2de481\\transformed\\emoji2-views-helper-1.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b6c83aeeeec05519f5972d56254e162e\\transformed\\emoji2-1.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e7fdb6f453ad5bd8133c45a500ed5568\\transformed\\drawerlayout-1.1.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\2526a8defcaaecfe3316ded5c9e0cf74\\transformed\\coordinatorlayout-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e8af7f0a7ab9df00601a5404a69389d7\\transformed\\dynamicanimation-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\eb98be6764af3af3955b96de1a593252\\transformed\\transition-1.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5e5496dd8d6ecfa64337a981ea426204\\transformed\\vectordrawable-animated-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a24942646526410bb00464c32eeef43f\\transformed\\vectordrawable-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\8cd9c827f44eabde74fcab8bd15b1392\\transformed\\core-ktx-1.18.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b15905d42cce7f07d5faaeecb264d96d\\transformed\\viewpager-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\c78114602d806ca7ff67e246ced9c759\\transformed\\legacy-support-core-utils-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\508e3a2a236589e8eed2ea13b8f07599\\transformed\\loader-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\01083d95ce23ba54b5c8662f6f13d696\\transformed\\recyclerview-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\c5c18d49eb33c8f17591c93882a0301e\\transformed\\customview-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b3aa41b2b5b45d0491f2012222ad3f1a\\transformed\\core-1.18.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\6c8a5366efa1bd17975ed79a4d99bb86\\transformed\\lifecycle-viewmodel-ktx-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\62da4bb5867b985208e9ae991b3d6394\\transformed\\lifecycle-viewmodel-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\8866683fc38b578b4dcc1bef6aa1146f\\transformed\\lifecycle-runtime-ktx-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\dd04a9f024042d53cc53b62abfb96f4d\\transformed\\lifecycle-process-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\5a5da33d4237961d49475e1839f61080\\transformed\\lifecycle-livedata-core-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\6bc33c8ae23e4b4efea7d9eb428d1f0b\\transformed\\lifecycle-livedata-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f630c4289df179c624cab3e755f733a6\\transformed\\lifecycle-runtime-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\afa242a7fcfb978181aa9963d884db90\\transformed\\lifecycle-common-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a92f3b1dab4b56a5426eb9c61e104a02\\transformed\\lifecycle-viewmodel-savedstate-2.6.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\e11269484b636e92d8efd920757cf6bd\\transformed\\savedstate-1.2.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7974d3f6a7f1b15f1ef8d7b3fc7c5848\\transformed\\savedstate-ktx-1.2.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\caf74120f7a2b83d3484a622fa39769f\\transformed\\annotation-experimental-1.4.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\727cde4a9c526168dc5a65015108c68b\\transformed\\concurrent-futures-ktx-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\495003f9f52f47a11bb4b428a2e15bb8\\transformed\\profileinstaller-1.4.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\89f521bd850e971ff9dcc80c694ffed7\\transformed\\startup-runtime-1.1.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a164b1016589fae2f8ab215f5445a098\\transformed\\tracing-1.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\53dce18ee930df01aaf5a1870b8a589c\\transformed\\tracing-ktx-1.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\4f1d995fa2e3c8e615e9fa38195fbc85\\transformed\\navigationevent.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d4a6dbec9526c7524cc72ccd3ed4a81e\\transformed\\core-viewtree-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\83bb98ede635265e7a7950b1ae9c43b7\\transformed\\kotlin-stdlib-jdk7-1.8.22.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\42e4e6ad1b2614afc7a33215669232ad\\transformed\\kotlinx-coroutines-android-1.9.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1f8c441ac6033ef7dd1cb0979a1a320b\\transformed\\kotlinx-coroutines-core-jvm-1.9.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\4b4737f9a70865b7921811075f4ef5d6\\transformed\\versionedparcelable-1.1.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\d98b1cd1014d89df81205386acb5f942\\transformed\\collection-jvm-1.4.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\963b5b8118a4bc493453ab125090e556\\transformed\\cursoradapter-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\96b43473cbb2c48ebfa9baec3055af0f\\transformed\\resourceinspection-annotation-1.0.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1b62f56eadf5711c6740873735166538\\transformed\\cardview-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\65df0f45767038155a64a524dc971291\\transformed\\transport-backend-cct-2.3.3.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1aa26ab9ceef9818b16ad1dcb5222b2a\\transformed\\transport-runtime-2.2.6.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\058c399453c33c89b754e14cc5931d58\\transformed\\transport-api-2.2.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a4f5678f3e2f321a5140a278d7f9aac0\\transformed\\firebase-components-16.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b22fe9e4c3686857d74b03b5f76ae6db\\transformed\\firebase-encoders-json-17.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f09419732c506803a8d9e65043cd56e3\\transformed\\firebase-encoders-16.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\eeecb9c8051a12c2c1b5ee80fed855ac\\transformed\\concurrent-futures-1.1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\b52e8f58ba7117885266b698b152c2b4\\transformed\\exifinterface-1.3.2.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\572b7395badf54ddac3a4c6181e877e3\\transformed\\core-runtime-2.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\41cdb18f53dcce38b91826c3d94f92ae\\transformed\\core-common-2.2.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\53a1f1a9f8dc1c9c31978ce1a3b674ad\\transformed\\interpolator-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\0caa23da6071f7b9b47ed3292a91e682\\transformed\\documentfile-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\9a59972699f696bd47bd5d0913182c88\\transformed\\localbroadcastmanager-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\93dca14536fbf504d4591b46f1a9799d\\transformed\\print-1.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f608abd7bd24bc163f80a38acfc52c70\\transformed\\annotation-jvm-1.9.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f761a4189d30472b26d134d35e95bc2e\\transformed\\runtime-annotation.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\f66561fae0b50c837b0aba7e03a039c5\\transformed\\kotlin-stdlib-2.2.10.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\67ba6e1d9a5f9e8119d7a93d4b2a75bb\\transformed\\tensorflow-lite-metadata-0.4.4.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\262ec0d95a942a50ce507505ac55b555\\transformed\\hamcrest-core-1.3.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\ac59bb1f33805f65a2be651d86a03431\\transformed\\annotations-23.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a1668f4d921c590b37efd4055435d168\\transformed\\constraintlayout-core-1.0.4.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\1b354256cffcd7afdf1cad8715ea1ae6\\transformed\\error_prone_annotations-2.15.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\431b8082da7edd62df691cb2bacefd36\\transformed\\checker-qual-2.5.8.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\798cbeda1fcac36109e6317e539bab38\\transformed\\flatbuffers-java-1.12.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\befd28952ac08d6eeb7303a094ceed6a\\transformed\\litert-1.0.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7830e7f7307f8d00d810b09c424212f6\\transformed\\auto-value-annotations-1.6.3.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7e769e9154a93459fd75b811014b419c\\transformed\\listenablefuture-1.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\13dd7bb6ec5119f06e59cc679630e1ad\\transformed\\javax.inject-1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\88affbfab0ae73ce4dc38f890434f90b\\transformed\\image-1.0.0-beta1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\a04fd6bc6f9faaf58110319e562ad077\\transformed\\firebase-annotations-16.0.0.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\7c7941b33e2b43bc19749184c90f5426\\transformed\\litert-api-1.0.1.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\8a53b0e7ffc634697106752506ceaa1f\\transformed\\jspecify-1.0.0.jar;C:\\Users\\ftfel\\AndroidStudioProjects\\MyApplication\\app\\build\\intermediates\\compile_and_runtime_r_class_jar\\debug\\processDebugResources\\R.jar;C:\\Users\\ftfel\\.gradle\\caches\\9.6.0\\transforms\\00c5b5c780dc12b3bd527210646e71a3\\transformed\\android.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MarkStackSizeMax                         = 536870912                                 {product} {ergonomic}
+   size_t MaxHeapSize                              = 536870912                                 {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5898240                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122945536                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122945536                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251789312                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 536870912                              {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Release file:
+<release file has not been read>
+Environment Variables:
+JAVA_HOME=C:\Program Files\Android\Android Studio\jbr
+PATH=C:\Program Files\Android\Android Studio\jbr\bin;C:\Program Files\Microsoft\jdk-25.0.2.10-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-XX\bin;C:\Program Files\MATLAB\R2026a\bin;C:\Program Files\dotnet\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\ftfel\AppData\Local\Programs\Python\Python312\;C:\Users\ftfel\AppData\Local\Programs\Python\Launcher\;C:\Users\ftfel\AppData\Local\Microsoft\WindowsApps;C:\Users\ftfel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ftfel\AppData\Local\JetBrains\Toolbox\scripts;
+USERNAME=ftfel
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+TMP=C:\Users\ftfel\AppData\Local\Temp
+TEMP=C:\Users\ftfel\AppData\Local\Temp
+
+
+
+
+Compilation memory statistics disabled.
+
+Periodic native trim disabled
+
+JNI global refs:
+JNI global refs: 0, weak refs: 0
+
+JNI global refs memory usage: 0, weak refs: 0
+
+Process memory usage:
+Resident Set Size: 14324K (0% of 8148984K total physical memory with 675248K free physical memory)
+
+OOME stack traces (most recent first):
+Classloader memory used:
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.9974)
+OS uptime: 6 days 9:56 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0xac, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi, hv, rdtscp, rdpid, fsrm, gfni, avx512_bitalg, f16c, cet_ibt, cet_ss, avx512_ifma
+Processor Information for processor 0
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 1
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 2
+  Max Mhz: 2419, Current Mhz: 1209, Mhz Limit: 2419
+Processor Information for processor 3
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 4
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 5
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 6
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+Processor Information for processor 7
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+
+Memory: 4k page, system-wide physical 7957M (659M free)
+TotalPageFile size 24341M (AvailPageFile size 76M)
+current process WorkingSet (physical memory assigned to process): 14M, peak: 14M
+current process commit charge ("private bytes"): 60M, peak: 186M
+
+vm_info: OpenJDK 64-Bit Server VM (25.0.4+-16339643-b508.27) for windows-amd64 JRE (25.0.4+-16339643-b508.27), built on 2026-09-14T20:44:57Z with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.
